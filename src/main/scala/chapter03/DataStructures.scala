@@ -1,3 +1,9 @@
+/*
+* TODO
+* - move tests
+* - fix compiler warnings
+* */
+
 package chapter03
 
 object DataStructures extends App {
@@ -298,10 +304,13 @@ object DataStructures extends App {
 
   def zip(list1: List[Int], list2: List[Int]): List[Int] = (list1, list2) match {
     case (Nil, Nil) => Nil
+    case (_, Nil) => Nil
+    case (Nil, _) => Nil
     case (x :: xs, y :: ys) => x + y :: zip(xs, ys)
   }
 
   assert(zip(List(1, 2, 3), List(4, 5, 6)) == List(5, 7, 9))
+  assert(zip(List(1, 2, 3), List(1, 2)) == List(2, 4))
 
   /*
   * EXERCISE 23
@@ -310,10 +319,13 @@ object DataStructures extends App {
 
   def zip[A, B, C](list1: List[A], list2: List[B])(f: (A, B) => C): List[C] = (list1, list2) match {
     case (Nil, Nil) => Nil
+    case (_, Nil) => Nil
+    case (Nil, _) => Nil
     case (x :: xs, y :: ys) => f(x, y) :: zip(xs, ys)(f)
   }
 
   assert(zip(List(1, 2, 3), List("a", "b", "c"))(_.toString + _) == List("1a", "2b", "3c"))
+  assert(zip(List(1), List("a", "b", "c"))(_.toString + _) == List("1a"))
 
   /*
   * EXERCISE 24

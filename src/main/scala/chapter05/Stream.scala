@@ -107,6 +107,8 @@ trait Stream[+A] {
 
   def zip[B](b: Stream[B]): Stream[(A, B)] = unfold(this.uncons -> b.uncons) {
     case (a, b) if a.isEmpty || b.isEmpty => None
+    case (_, None) => None
+    case (None, _) => None
     case (Some(a -> al), Some(b -> bl)) => Some(a -> b, al.uncons -> bl.uncons)
   }
 
