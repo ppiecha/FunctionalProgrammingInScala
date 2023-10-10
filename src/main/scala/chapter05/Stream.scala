@@ -154,7 +154,7 @@ trait Stream[+A] {
 
 }
 
-object Stream extends App{
+object Stream extends App {
   def empty[A]: Stream[A] =
     new Stream[A] { def uncons = None }
 
